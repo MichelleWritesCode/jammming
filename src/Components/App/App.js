@@ -9,25 +9,30 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchResults: [
-        {name: "", artist: "", album: "", id: "1",},
-        {name: "", artist: "", album: "", id: "2",},
-        {name: "", artist: "", album: "", id: "3",},
+        {name: "All Before You", artist: "Kensington", album: "Control", id: "1",},
+        {name: "Island", artist: "Kensington", album: "Time", id: "2",},
+        {name: "Sorry", artist: "Kensington", album: "Control", id: "3"},
       ],
       playlistName: "My favorite songs",
       playlistTracks: [
-        {name: "", artist: "", album: "", id: "10"},
-        {name: "", artist: "", album: "", id: "11"},
-        {name: "", artist: "", album: "", id: "12"},
+        {name: "Better Half of Me", artist: "Michelle", album: "199One", id: "10"},
+        {name: "Hello", artist: "Adele", album: "25", id: "11",},
+        {name: "Winner", artist: "Tim Akkerman", album: "Lions Don't Cry", id: "12"},
       ] 
     }
     this.addTrack = this.addTrack.bind(this);
   }
 
-  // check if this is also a correct way to check the id
   addTrack(track) {
-    if (track.id !== this.state.playlistTracks.id) {
-      this.playlistTracks.push(track);
-      this.setState({playlistTracks: track});
+    if (this.state.playlistTracks.find(specificTrack => specificTrack.id !== track.id)) {
+      this.setState(state => {
+        const playlist = state.playlistTracks.concat(track);
+        return {
+          playlistTracks: playlist
+        };
+      }); 
+    } else {
+      return;
     }
   }
 
